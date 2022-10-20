@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1052807111618",
+    "project_id": "denemeapp-12935",
+    "storage_bucket": "denemeapp-12935.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052807111618:android:dc48acd2dc8c12b66b2c5b",
+        "android_client_info": {
+          "package_name": "com.example.deneme_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052807111618-pee3uot1qo6m7m7jpkv4eh3hhl1q2d0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx_ryGbmxDeM20XplpCn3QW3b5d2hAO9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052807111618-pee3uot1qo6m7m7jpkv4eh3hhl1q2d0q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052807111618:android:9420e989be847f196b2c5b",
+        "android_client_info": {
+          "package_name": "com.example.hangout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052807111618-pee3uot1qo6m7m7jpkv4eh3hhl1q2d0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx_ryGbmxDeM20XplpCn3QW3b5d2hAO9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052807111618-pee3uot1qo6m7m7jpkv4eh3hhl1q2d0q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
