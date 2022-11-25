@@ -3,6 +3,7 @@ package com.example.hangout
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -28,6 +29,7 @@ class LogIn : AppCompatActivity() {
         edtPassword = findViewById<EditText>(R.id.edt_password)
         btnLogIn = findViewById<Button>(R.id.btnLogIn)
         btnSignUp = findViewById<Button>(R.id.btnSignUp)
+        edtPassword.transformationMethod = PasswordTransformationMethod.getInstance()
 
         btnSignUp.setOnClickListener{
             val intent = Intent(this, SignUp::class.java)

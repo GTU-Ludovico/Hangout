@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#dbdbdb"
     tools:context=".LogIn">
 
     <ImageView
         android:id="@+id/app_logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/logo"
+        android:layout_width="281dp"
+        android:layout_height="189dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"/>
+        android:layout_marginTop="70dp"
+        android:src="@drawable/logo3" />
     
     <EditText
         android:id="@+id/edt_email"
@@ -28,6 +29,7 @@
 
     <EditText
         android:id="@+id/edt_password"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/edt_email"
@@ -43,22 +45,22 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/edt_password"
-        android:text="Log In"
-        android:background="@drawable/btn_background"
-        android:textColor="@color/white"
-        android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:background="#147c8c"
+        android:text="Log In"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnLogIn"
-        android:text="Sign Up"
-        android:background="@drawable/btn_background"
-        android:textColor="@color/white"
-        android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:background="#147c8c"
+        android:text="Sign Up"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 </RelativeLayout>
