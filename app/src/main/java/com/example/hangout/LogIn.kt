@@ -49,6 +49,8 @@ class LogIn : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val intent = Intent(this@LogIn, MainActivity::class.java)
+                    val userID:String = mAuth.getCurrentUser()!!.getUid()
+                    intent.putExtra("ID", userID)
                     startActivity(intent)
                 } else {
                     Toast.makeText(this@LogIn, "User does not exist", Toast.LENGTH_SHORT).show()
