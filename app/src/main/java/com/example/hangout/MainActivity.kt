@@ -1,6 +1,7 @@
 package com.example.hangout
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,21 +12,34 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.hangout.databinding.ActivityMainBinding
+import com.example.recylerviewkotlin.MyAdapter
+import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var profileImage: ImageView
     private lateinit var edtcreatebutton : Button
+
+
+    private lateinit var events: ArrayList<Events>
+    private lateinit var tempArrayList : ArrayList<Events>
+    private lateinit var newRecylerview : RecyclerView
+
+    private var context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val userID = intent.getStringExtra("ID")
+
 
         val storageReference = FirebaseStorage.getInstance().getReference()
         profileImage = findViewById<ImageView>(R.id.profile)
@@ -34,6 +48,14 @@ class MainActivity : AppCompatActivity() {
             Picasso.get().load(uri).into(profileImage)
         }
 
+        newRecylerview =findViewById(R.id.rcView)
+        newRecylerview.layoutManager = LinearLayoutManager(this)
+        newRecylerview.setHasFixedSize(true)
+        events = arrayListOf<Events>()
+        tempArrayList = arrayListOf<Events>()
+        fillArray()
+
+
         edtcreatebutton=findViewById<Button>(R.id.button4)
         edtcreatebutton.setOnClickListener()
         {
@@ -41,5 +63,37 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("ID", userID)
             startActivity(intent)
         }
+    }
+
+    private fun fillArray(){
+        FirebaseFirestore.getInstance().collection("events")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val creatorID = document.data["hostID"]
+                    val eventID = document.data["eventID"]
+                    val title = document.data["title"]
+                    val category = document.data["category"]
+                    val location = document.data["place"]
+                    val description = document.data["description"]
+                    val currentParticipants = document.data["current"]
+                    val participantNumber = document.data["parnumber"]
+                    val private = document.data["private"]
+                    val temp: Events = Events(creatorID.toString(), eventID.toString(), title.toString(), category.toString(), location.toString(), description.toString(), currentParticipants.toString(), participantNumber.toString(), private.toString())
+                    events.add(temp)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+        tempArrayList = events
+        val adapter = MyAdapter(tempArrayList, context)
+
+        newRecylerview.adapter = adapter
+        adapter.setOnItemClickListener(object : MyAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+
+            }
+        })
     }
 }
