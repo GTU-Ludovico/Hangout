@@ -27,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import java.util.*
+import kotlin.collections.HashMap
 
 class SignUp : AppCompatActivity() {
     private lateinit var edtName: EditText
@@ -142,6 +143,8 @@ class SignUp : AppCompatActivity() {
                     user.put("about", about)
                     documentReference.set(user).addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
                             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
+
 
                     val intent = Intent(this@SignUp, LogIn::class.java)
                     intent.putExtra("ID", userID)

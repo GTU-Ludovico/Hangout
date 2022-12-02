@@ -22,6 +22,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
     private lateinit var profileImage: ImageView
@@ -40,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
         val userID = intent.getStringExtra("ID")
 
-
         val storageReference = FirebaseStorage.getInstance().getReference()
         profileImage = findViewById<ImageView>(R.id.profile)
         val profileRef = storageReference.child("users/"+userID+"/profile.jpg")
@@ -53,7 +53,9 @@ class MainActivity : AppCompatActivity() {
         newRecylerview.setHasFixedSize(true)
         events = arrayListOf<Events>()
         tempArrayList = arrayListOf<Events>()
-        fillArray()
+
+
+        fillArray(userID!!, findParticipated(userID!!))
 
 
         edtcreatebutton=findViewById<Button>(R.id.button4)
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun fillArray(){
+    private fun fillArray(userID: String, eventDetails: ArrayList<String>){
         FirebaseFirestore.getInstance().collection("events")
             .get()
             .addOnSuccessListener { result ->
@@ -79,13 +81,20 @@ class MainActivity : AppCompatActivity() {
                     val currentParticipants = document.data["current"]
                     val participantNumber = document.data["parnumber"]
                     val private = document.data["private"]
-                    val temp: Events = Events(creatorID.toString(), eventID.toString(), title.toString(), category.toString(), location.toString(), description.toString(), currentParticipants.toString(), participantNumber.toString(), private.toString())
-                    events.add(temp)
+                    val date = document.data["date"]
+                    val time = document.data["time"]
+                    val temp: Events = Events(date.toString(), time.toString(), creatorID.toString(), eventID.toString(), title.toString(), category.toString(), location.toString(), description.toString(), currentParticipants.toString(), participantNumber.toString(), private.toString(), userID)
+
+                    if (!eventDetails.contains(eventID.toString())){
+                        events.add(temp)
+                    }
+
                 }
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
             }
+
         tempArrayList = events
         val adapter = MyAdapter(tempArrayList, context)
 
@@ -95,5 +104,24 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    private fun findParticipated(userID: String): ArrayList<String>{
+        val arr = ArrayList<String>()
+        FirebaseFirestore.getInstance().collection("eventDetails")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val participantID = document.data["participantID"]
+                    val eventID = document.data["eventID"]
+                    if (participantID.toString().equals(userID)){
+                        arr.add(eventID.toString())
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting documents: ", exception)
+            }
+        return arr
     }
 }

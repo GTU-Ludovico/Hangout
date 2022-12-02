@@ -80,7 +80,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="17dp"
-        android:background="#147c8c"
+        android:background="#342D7E"
         android:text="Create\nEvent"
         android:textColor="@color/white" />
 
@@ -93,8 +93,8 @@
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="115dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="1dp"
         tools:listitem="@layout/item" />
 
 

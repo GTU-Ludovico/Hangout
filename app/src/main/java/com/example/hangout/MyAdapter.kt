@@ -1,7 +1,9 @@
 package com.example.recylerviewkotlin
 
+import android.content.ContentValues
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hangout.Events
 import com.example.hangout.R
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MyAdapter(private val newsList : ArrayList<Events>, private val context: Context) : RecyclerView.Adapter<MyAdapter.MyViewHolder>(),Filterable {
 
@@ -63,7 +66,6 @@ class MyAdapter(private val newsList : ArrayList<Events>, private val context: C
         holder.location.text = currentItem.place
 
         holder.btnAttend.setOnClickListener {
-
             holder.btnAttend.text = "Attended"
             if (!flag) {
                 Toast.makeText(context, "Bravo!", Toast.LENGTH_SHORT).show()
