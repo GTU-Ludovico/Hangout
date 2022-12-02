@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="#147c8c"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="5dp"
+    android:layout_marginVertical="20dp"
+    android:layout_marginHorizontal="10dp"
+    android:id="@+id/card_view"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="287dp"
+                android:layout_height="130dp"
+
+                android:layout_weight="3"
+                android:padding="2dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/person"
+                    >
+                </ImageView>
+                <Button
+                    android:id="@+id/btnInfo"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="12.5dp"
+                    android:layout_below="@id/edt_about"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/information_icon"
+                    android:text="Info"
+                    android:textColor="#147c8c"
+                    android:textSize="20sp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:paddingTop="15dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp">
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="title falan"
+                        android:layout_marginHorizontal="10dp"/>
+
+                    <TextView
+                        android:id="@+id/category"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="THU, OCT 18"
+                        android:layout_marginHorizontal="10dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    >
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="1/2"
+                        android:layout_marginLeft="10dp"/>
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text=" going"
+                        android:layout_marginRight="10dp"/>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/category_icon"
+                        >
+                    </ImageView>
+                    <TextView
+                        android:id="@+id/participants"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="kategori falan"
+                        />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:paddingRight="10dp"
+
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+
+
+                <Button
+                    android:id="@+id/btnAttend"
+                    android:layout_width="120dp"
+                    android:layout_height="20dp"
+                    android:layout_below="@id/edt_about"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:background="@drawable/btn_background"
+                    android:text="Attend"
+                    android:textColor="#147c8c"
+                    android:textSize="15sp" />
+                <ImageView
+
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/private_icon">
+                </ImageView>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
