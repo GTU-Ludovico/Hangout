@@ -23,6 +23,7 @@ class createEvent : AppCompatActivity() {
     private lateinit var finishEvents: Button
     private lateinit var spinnerC: Spinner
     private lateinit var spinnerP: Spinner
+    private lateinit var backPage: ImageView
 
     private val categories = arrayOf("Sport", "Board Game", "Talk", "Reading", "Watching")
     private val places = arrayOf("Computer Engineering Building", "Library", "SKS", "Kelebek", "Molecular Biology Building", "Material Engineering Building")
@@ -41,6 +42,7 @@ class createEvent : AppCompatActivity() {
         edtParNumber=findViewById<EditText>(R.id.edt_par_number)
         edtDescription=findViewById<EditText>(R.id.edt_description)
         finishEvents=findViewById<Button>(R.id.btnFinish)
+        backPage=findViewById(R.id.backPage)
 
         switchFlag=findViewById<Switch>(R.id.SW)
         var message: String = "Public"
@@ -85,6 +87,12 @@ class createEvent : AppCompatActivity() {
             val description=edtDescription.text.toString()
 
             createEvent(title,date,time,parnumber,description,message,userID!!)
+        }
+
+        backPage.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("ID", userID)
+            startActivity(intent)
         }
     }
     private fun createEvent(title: String, date: String, time: String,parnumber:String,description:String,message:String,userID:String) {

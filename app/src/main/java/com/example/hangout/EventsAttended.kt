@@ -1,34 +1,25 @@
 package com.example.hangout
 
-import android.content.ContentValues.TAG
-import android.content.Context
+import android.content.ContentValues
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hangout.databinding.ActivityMainBinding
-import com.example.recylerviewkotlin.MyAdapter
-import com.google.android.gms.tasks.Tasks
-import com.google.firebase.firestore.*
+import com.example.recylerviewkotlin.MyEventAdapter
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
-class MainActivity : AppCompatActivity() {
+class EventsAttended : AppCompatActivity() {
+    private lateinit var backBtn: ImageView
     private lateinit var profileImage: ImageView
-    private lateinit var edtcreatebutton : Button
-    private lateinit var logoutbutton: Button
+    private lateinit var name: TextView
 
     private lateinit var events: ArrayList<Events>
     private lateinit var tempArrayList : ArrayList<Events>
@@ -38,9 +29,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        setContentView(R.layout.activity_events_attended)
         val userID = intent.getStringExtra("ID")
+
+        backBtn = findViewById<ImageView>(R.id.backBtn)
+        backBtn.setOnClickListener {
+            val intent = Intent(this, Profile::class.java)
+            intent.putExtra("ID", userID)
+            startActivity(intent)
+        }
 
         val storageReference = FirebaseStorage.getInstance().getReference()
         profileImage = findViewById<ImageView>(R.id.profile)
@@ -49,35 +46,28 @@ class MainActivity : AppCompatActivity() {
             Picasso.get().load(uri).into(profileImage)
         }
 
-        profileImage.setOnClickListener {
-            val intent = Intent(this, Profile::class.java)
-            intent.putExtra("ID", userID)
-            startActivity(intent)
+        name = findViewById(R.id.name)
+        val docRef = FirebaseFirestore.getInstance().collection("users").document(userID!!)
+        docRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document = task.result
+                if (document != null) {
+                    val nameV = document.getString("name")
+                    name.text = nameV
+                } else {
+                    Log.d("LOGGER", "No such document")
+                }
+            } else {
+                Log.d("LOGGER", "get failed with ", task.exception)
+            }
         }
 
-        newRecylerview =findViewById(R.id.rcView)
-        newRecylerview.layoutManager = LinearLayoutManager(this)
-        newRecylerview.setHasFixedSize(true)
         events = arrayListOf<Events>()
         tempArrayList = arrayListOf<Events>()
-
-
-        findParticipated(userID!!)
-
-        logoutbutton=findViewById<Button>(R.id.button)
-        logoutbutton.setOnClickListener()
-        {
-            val intent = Intent(this, LogIn::class.java)
-            startActivity(intent)
-        }
-
-        edtcreatebutton=findViewById<Button>(R.id.button4)
-        edtcreatebutton.setOnClickListener()
-        {
-            val intent = Intent(this, createEvent::class.java)
-            intent.putExtra("ID", userID)
-            startActivity(intent)
-        }
+        newRecylerview = findViewById(R.id.rcView2)
+        newRecylerview.layoutManager = LinearLayoutManager(this)
+        newRecylerview.setHasFixedSize(true)
+        findAttendedEvents(userID!!)
     }
 
     private fun fillArray(userID: String, eventDetails: ArrayList<String>){
@@ -98,29 +88,30 @@ class MainActivity : AppCompatActivity() {
                     val time = document.data["time"]
                     val temp: Events = Events(date.toString(), time.toString(), creatorID.toString(), eventID.toString(), title.toString(), category.toString(), location.toString(), description.toString(), currentParticipants.toString(), participantNumber.toString(), private.toString(), userID)
 
-                    if (!eventDetails.contains(eventID.toString()) && currentParticipants.toString().toInt() < participantNumber.toString().toInt() && !creatorID.toString().equals(userID)){
+                    if (eventDetails.contains(eventID.toString())){
                         events.add(temp)
+                        Toast.makeText(this, category.toString(), Toast.LENGTH_SHORT).show()
                     }
 
                 }
                 tempArrayList = events
-                val adapter = MyAdapter(tempArrayList, context)
+                val adapter = MyEventAdapter(tempArrayList, context)
 
                 newRecylerview.adapter = adapter
-                adapter.setOnItemClickListener(object : MyAdapter.onItemClickListener{
+                adapter.setOnItemClickListener(object : MyEventAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
 
                     }
                 })
             }
             .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
+                Log.d(ContentValues.TAG, "Error getting documents: ", exception)
             }
 
 
     }
 
-    private fun findParticipated(userID: String){
+    private fun findAttendedEvents(userID: String) {
         val arr = ArrayList<String>()
         FirebaseFirestore.getInstance().collection("eventDetails")
             .get()
@@ -132,10 +123,14 @@ class MainActivity : AppCompatActivity() {
                         arr.add(eventID.toString())
                     }
                 }
+
+                Toast.makeText(this, arr.size.toString(), Toast.LENGTH_SHORT).show()
                 fillArray(userID, arr)
             }
             .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-            }
+                Log.d(ContentValues.TAG, "Error getting documents: ", exception)
+             }
     }
+
+
 }
