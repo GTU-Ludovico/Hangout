@@ -109,15 +109,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6"
         app:srcCompat="@drawable/line" />
 
-    <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="330dp"
-        android:layout_height="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createdby"
-        app:srcCompat="@drawable/line" />
 
     <ImageView
         android:id="@+id/imageView17"
@@ -150,32 +141,6 @@
         app:srcCompat="@drawable/line" />
 
     <TextView
-        android:id="@+id/createdby"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="2dp"
-        android:text="Event Created By:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView14" />
-
-    <TextView
-        android:id="@+id/creator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="60dp"
-        android:text="Creater"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/createdby"
-        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
-
-    <TextView
         android:id="@+id/eventtime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -186,20 +151,20 @@
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView14" />
 
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:text="Time"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/eventtime"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView14"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -280,7 +245,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView16"
-        tools:listitem="@layout/participants" />
+        tools:listitem="@layout/events_participant_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,7 @@ class createEvent : AppCompatActivity() {
     private lateinit var backPage: ImageView
 
     private val categories = arrayOf("Sport", "Board Game", "Talk", "Reading", "Watching")
-    private val places = arrayOf("Computer Engineering Building", "Library", "SKS", "Kelebek", "Molecular Biology Building", "Material Engineering Building")
+    private val places = arrayOf("Computer Engineering Building", "Library", "SKS", "Kelebek", "Molecular Biology Building", "Material Engineering Building", "Running Track")
     private var selectedCategory = categories[0]
     private var selectedPlace = places[0]
 

@@ -3,16 +3,15 @@ package com.example.recylerviewkotlin
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hangout.*
+import com.example.hangout.Events
+import com.example.hangout.R
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,7 +20,7 @@ import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MyCreatedAdapter(private val newsList : ArrayList<Events>, private val context: Context) : RecyclerView.Adapter<MyCreatedAdapter.MyViewHolder>(),Filterable {
+class MyDetailAdapter(private val newsList : ArrayList<String>, private val context: Context) : RecyclerView.Adapter<MyDetailAdapter.MyViewHolder>(),Filterable {
 
     private lateinit var mListener : onItemClickListener
 
@@ -44,7 +43,7 @@ class MyCreatedAdapter(private val newsList : ArrayList<Events>, private val con
 
     }
 
-    fun addItem(i : Int, news : Events){
+    fun addItem(i : Int, news : String){
 
         newsList.add(i, news)
         notifyDataSetChanged()
@@ -55,7 +54,7 @@ class MyCreatedAdapter(private val newsList : ArrayList<Events>, private val con
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.cards_events_created,
+            R.layout.participants,
             parent,false)
 
         return MyViewHolder(itemView,mListener)
@@ -64,21 +63,21 @@ class MyCreatedAdapter(private val newsList : ArrayList<Events>, private val con
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = newsList[position]
-        holder.date.text = currentItem.date
-        holder.title.text = currentItem.title
-        holder.description.text = currentItem.description
-        holder.time.text = currentItem.time
-        holder.location.text = currentItem.place
 
-        holder.linear.setOnClickListener{
-            val intent = Intent(context, EventCreatorDetails::class.java)
-            intent.putExtra("ID", currentItem.userID)
-            intent.putExtra("eventID", currentItem.eventID)
-            context.startActivity(intent)
-        }
+        val docRef = FirebaseFirestore.getInstance().collection("users").document(currentItem)
 
-        holder.cancel.setOnClickListener {
-            //TO BE IMPLEMENTED
+        docRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document = task.result
+                if (document != null) {
+                    val name = document.getString("name")
+                    holder.attendee.text = name
+                } else {
+                    Log.d("LOGGER", "No such document")
+                }
+            } else {
+                Log.d("LOGGER", "get failed with ", task.exception)
+            }
         }
     }
 
@@ -87,14 +86,7 @@ class MyCreatedAdapter(private val newsList : ArrayList<Events>, private val con
     }
 
     class MyViewHolder(itemView : View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView){
-        val date : TextView = itemView.findViewById(R.id.date)
-        val title : TextView = itemView.findViewById(R.id.title)
-        val description : TextView = itemView.findViewById(R.id.description)
-        val time : TextView = itemView.findViewById(R.id.time)
-        val location : TextView = itemView.findViewById(R.id.location)
-        val cancel: ImageView = itemView.findViewById(R.id.cancel)
-
-        val linear: LinearLayout = itemView.findViewById(R.id.linear)
+        val attendee : TextView = itemView.findViewById(R.id.attendee)
 
         init {
 

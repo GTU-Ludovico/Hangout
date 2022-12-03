@@ -77,6 +77,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_marginTop="4dp"
                     android:src="@drawable/time_icon">
 
                 </ImageView>
@@ -85,7 +86,7 @@
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2.5dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="10dp"
                     android:text="13.00 P.M"
                     android:textSize="12sp">
@@ -95,6 +96,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_marginTop="4dp"
                     android:src="@drawable/location_icon">
 
                 </ImageView>
@@ -129,12 +131,25 @@
                 android:layout_marginTop="0dp"
                 android:src="@drawable/cancel_icon" />
 
-                <ImageView
-                    android:id="@+id/hostProfile"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="24dp"
-                    android:src="@drawable/person"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+
+                android:src= "@drawable/person"
+                android:id="@+id/hostProfile"
+                android:layout_centerInParent= "true"
+                android:layout_width= "30dp"
+                android:layout_height= "30dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="30dp"
+                />
+
+
+
+            <!--<ImageView
+                android:id="@+id/hostProfile"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/person"/>-->
 
         </LinearLayout>
 

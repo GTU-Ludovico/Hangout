@@ -10,20 +10,12 @@
     android:layout_marginHorizontal="10dp"
     android:id="@+id/card_view"
     android:padding="5dp">
-    <ImageView
-        android:id="@+id/delete"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/cancel_icon">
-
-    </ImageView>
 
     <TextView
         android:id="@+id/attendee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="30dp"
         android:text="name falan">
 
     </TextView>

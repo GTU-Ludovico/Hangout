@@ -3,6 +3,7 @@ package com.example.recylerviewkotlin
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hangout.EventDetails
 import com.example.hangout.Events
 import com.example.hangout.R
 import com.google.android.material.imageview.ShapeableImageView
@@ -69,6 +71,13 @@ class MyEventAdapter(private val newsList : ArrayList<Events>, private val conte
         holder.time.text = currentItem.time
         holder.location.text = currentItem.place
 
+        holder.linear.setOnClickListener{
+            val intent = Intent(context, EventDetails::class.java)
+            intent.putExtra("ID", currentItem.userID)
+            intent.putExtra("eventID", currentItem.eventID)
+            context.startActivity(intent)
+        }
+
         val storageReference = FirebaseStorage.getInstance().getReference()
         val profileRef = storageReference.child("users/"+currentItem.hostID+"/profile.jpg")
         profileRef.downloadUrl.addOnSuccessListener { uri ->
@@ -92,6 +101,8 @@ class MyEventAdapter(private val newsList : ArrayList<Events>, private val conte
         val location : TextView = itemView.findViewById(R.id.location)
         val hostProfile: ImageView = itemView.findViewById(R.id.hostProfile)
         val cancel: ImageView = itemView.findViewById(R.id.cancel)
+
+        val linear: LinearLayout = itemView.findViewById(R.id.linear)
 
         init {
 

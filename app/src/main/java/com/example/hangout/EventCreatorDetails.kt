@@ -11,15 +11,15 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recylerviewkotlin.MyCreatedAdapter
+import com.example.recylerviewkotlin.MyCreatorDetailAdapter
 import com.example.recylerviewkotlin.MyDetailAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 
-class EventDetails : AppCompatActivity() {
+class EventCreatorDetails : AppCompatActivity() {
     private lateinit var profile: ImageView
     private lateinit var title: TextView
-    private lateinit var creator: TextView
     private lateinit var time: TextView
     private lateinit var category: TextView
     private lateinit var description: TextView
@@ -32,7 +32,7 @@ class EventDetails : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_event_details)
+        setContentView(R.layout.activity_event_creator_details)
 
         val userID = intent.getStringExtra("ID")
         val eventID = intent.getStringExtra("eventID")
@@ -45,14 +45,13 @@ class EventDetails : AppCompatActivity() {
 
         backPage = findViewById(R.id.backPage)
         backPage.setOnClickListener {
-            val intent = Intent(this, EventsAttended::class.java)
+            val intent = Intent(this, EventsCreated::class.java)
             intent.putExtra("ID", userID)
             startActivity(intent)
         }
 
         profile = findViewById(R.id.profile)
         title = findViewById(R.id.title)
-        creator = findViewById(R.id.creator)
         time = findViewById(R.id.time)
         category = findViewById(R.id.category)
         description = findViewById(R.id.description)
@@ -77,10 +76,10 @@ class EventDetails : AppCompatActivity() {
                     }
                 }
                 tempArrayList = attendeesIDs
-                val adapter = MyDetailAdapter(tempArrayList, context)
+                val adapter = MyCreatorDetailAdapter(tempArrayList, context)
 
                 newRecylerview.adapter = adapter
-                adapter.setOnItemClickListener(object : MyDetailAdapter.onItemClickListener{
+                adapter.setOnItemClickListener(object : MyCreatorDetailAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
 
                     }
@@ -107,7 +106,6 @@ class EventDetails : AppCompatActivity() {
                     time.text = timeV
                     description.text = descriptionV
 
-                    findCreator(document.getString("hostID")!!)
                     findCreatedEvents(uID, eID)
                 } else {
                     Log.d("LOGGER", "No such document")
@@ -118,21 +116,4 @@ class EventDetails : AppCompatActivity() {
         }
     }
 
-    private fun findCreator(ID: String) {
-        val docRef = FirebaseFirestore.getInstance().collection("users").document(ID)
-
-        docRef.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val document = task.result
-                if (document != null) {
-                    val nameV = document.getString("name")
-                    creator.text = nameV
-                } else {
-                    Log.d("LOGGER", "No such document")
-                }
-            } else {
-                Log.d("LOGGER", "get failed with ", task.exception)
-            }
-        }
-    }
 }
