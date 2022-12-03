@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Circular">
+        <item name="cornerSize">60%</item>
+    </style>
+    <style name="Circular2">
+        <item name="cornerSize">60dp</item>
+        <item name="cornerFamily">cut</item>
+    </style>
+</resources>
