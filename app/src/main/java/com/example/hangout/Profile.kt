@@ -74,5 +74,11 @@ class Profile : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        EventsCreatedBtn.setOnClickListener{
+            val intent = Intent(this, EventsCreated::class.java)
+            intent.putExtra("ID", userID)
+            startActivity(intent)
+        }
     }
 }
