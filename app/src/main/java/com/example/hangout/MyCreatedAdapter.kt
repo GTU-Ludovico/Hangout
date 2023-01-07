@@ -62,6 +62,7 @@ class MyCreatedAdapter(private val newsList : ArrayList<Events>, private val con
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = newsList[position]
         holder.date.text = currentItem.date
@@ -77,9 +78,79 @@ class MyCreatedAdapter(private val newsList : ArrayList<Events>, private val con
             context.startActivity(intent)
         }
 
+        var flag = false
         holder.cancel.setOnClickListener {
             //TO BE IMPLEMENTED
+            //eventdetails'daki eventID tutuyorsa sil
+            //requestlerdeki eventID tutuyorsa sil
+            //events'ten eventID tutuyorsa sil
+
+            if (flag){
+                Toast.makeText(context, "Event has already been cancelled.", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                FirebaseFirestore.getInstance().collection("eventDetails")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            val eventIDV = document.data["eventID"]
+                            if (eventIDV.toString().equals(newsList[position].eventID)){
+                                FirebaseFirestore.getInstance().collection("eventDetails").document(document.id)
+                                    .delete()
+                                    .addOnSuccessListener { }
+                                    .addOnFailureListener { Toast.makeText(context, "ERROR.", Toast.LENGTH_SHORT).show() }
+                            }
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d(ContentValues.TAG, "Error getting documents: ", exception)
+                    }
+
+                FirebaseFirestore.getInstance().collection("requests")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            val eventIDV = document.data["eventID"]
+                            if (eventIDV.toString().equals(newsList[position].eventID)){
+                                FirebaseFirestore.getInstance().collection("requests").document(document.id)
+                                    .delete()
+                                    .addOnSuccessListener { }
+                                    .addOnFailureListener { Toast.makeText(context, "ERROR.", Toast.LENGTH_SHORT).show() }
+                            }
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d(ContentValues.TAG, "Error getting documents: ", exception)
+                    }
+
+                FirebaseFirestore.getInstance().collection("events")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            val eventIDV = document.data["eventID"]
+                            if (eventIDV.toString().equals(newsList[position].eventID)){
+                                FirebaseFirestore.getInstance().collection("events").document(document.id)
+                                    .delete()
+                                    .addOnSuccessListener { }
+                                    .addOnFailureListener { Toast.makeText(context, "ERROR.", Toast.LENGTH_SHORT).show() }
+                            }
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d(ContentValues.TAG, "Error getting documents: ", exception)
+                    }
+
+                Toast.makeText(context, "Event has been cancelled successfully!", Toast.LENGTH_SHORT).show()
+                holder.date.text = currentItem.date + "\n(CANCELLED)"
+            }
+
+
+            flag = true
         }
+    }
+
+    private fun deleteFrom(holder: MyViewHolder, position: Int, colName: String) {
+
     }
 
     override fun getItemCount(): Int {

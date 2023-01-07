@@ -66,7 +66,7 @@ class EventCreatorDetails : AppCompatActivity() {
 
     }
 
-    private fun findCreatedEvents(userID: String, eventID: String){
+    private fun findCreatedEvents(userID: String, eventID: String, current: Int){
         FirebaseFirestore.getInstance().collection("eventDetails")
             .get()
             .addOnSuccessListener { result ->
@@ -76,7 +76,7 @@ class EventCreatorDetails : AppCompatActivity() {
                     }
                 }
                 tempArrayList = attendeesIDs
-                val adapter = MyCreatorDetailAdapter(tempArrayList, context)
+                val adapter = MyCreatorDetailAdapter(tempArrayList, context, eventID, userID, current)
 
                 newRecylerview.adapter = adapter
                 adapter.setOnItemClickListener(object : MyCreatorDetailAdapter.onItemClickListener{
@@ -101,12 +101,13 @@ class EventCreatorDetails : AppCompatActivity() {
                     val categoryV = document.getString("category")
                     val timeV = document.getString("time")
                     val descriptionV = document.getString("description")
+                    val current = document.getString("current")
                     title.text = titleV
                     category.text = categoryV
                     time.text = timeV
                     description.text = descriptionV
 
-                    findCreatedEvents(uID, eID)
+                    findCreatedEvents(uID, eID, current!!.toInt())
                 } else {
                     Log.d("LOGGER", "No such document")
                 }

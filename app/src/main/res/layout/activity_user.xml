@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background = "#dbdbdb"
-    tools:context=".Profile">
+    tools:context=".User">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:text="TEST"
@@ -69,67 +69,11 @@
             app:layout_constraintTop_toBottomOf="@+id/ProfilePhoto"
             app:layout_constraintVertical_bias="0.556" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:srcCompat="?attr/actionModeCloseDrawable"
-            tools:layout_editor_absoluteX="3dp"
-            tools:layout_editor_absoluteY="13dp"
-            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <Button
-        android:id="@+id/secondActivityButton"
-
-        android:layout_width="304dp"
-        android:layout_height="56dp"
-
-        android:background="@drawable/btn_background"
-        android:backgroundTint="#147D8B"
-        android:paddingHorizontal="10dp"
-        android:text="Events Attended"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.082" />
-
-    <Button
-        android:id="@+id/EventsCreatedBtn"
-        android:layout_width="304dp"
-        android:layout_height="56dp"
-        android:background="@drawable/btn_background"
-        android:backgroundTint="#147D8B"
-        android:paddingHorizontal="10dp"
-        android:text="Events Created"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/secondActivityButton"
-        app:layout_constraintVertical_bias="0.09" />
-
-    <Button
-        android:id="@+id/RequestBtn"
-        android:layout_width="304dp"
-        android:layout_height="56dp"
-        android:background="@drawable/btn_background"
-        android:backgroundTint="#147D8B"
-        android:paddingHorizontal="10dp"
-        android:text="Requests"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/secondActivityButton"
-        app:layout_constraintVertical_bias="0.533" />
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/description"
         android:layout_width="300dp"
         android:layout_height="140dp"
         android:background="@drawable/round_about_me"
@@ -144,7 +88,24 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.131" />
+        app:layout_constraintVertical_bias="0.175" />
 
+    <Button
+        android:id="@+id/back"
+
+        android:layout_width="304dp"
+        android:layout_height="56dp"
+
+        android:background="@drawable/btn_background"
+        android:backgroundTint="#147D8B"
+        android:paddingHorizontal="10dp"
+        android:text="BACK TO HOMEPAGE"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintVertical_bias="0.248" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

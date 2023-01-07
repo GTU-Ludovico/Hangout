@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 tempArrayList = events
-                val adapter = MyAdapter(tempArrayList, context)
+                val adapter = MyAdapter(tempArrayList, context, userID)
 
                 newRecylerview.adapter = adapter
                 adapter.setOnItemClickListener(object : MyAdapter.onItemClickListener{

@@ -24,6 +24,7 @@ class EventDetails : AppCompatActivity() {
     private lateinit var category: TextView
     private lateinit var description: TextView
     private lateinit var backPage: ImageView
+    private lateinit var homePage: ImageView
 
     private lateinit var attendeesIDs: ArrayList<String>
     private lateinit var tempArrayList : ArrayList<String>
@@ -46,6 +47,13 @@ class EventDetails : AppCompatActivity() {
         backPage = findViewById(R.id.backPage)
         backPage.setOnClickListener {
             val intent = Intent(this, EventsAttended::class.java)
+            intent.putExtra("ID", userID)
+            startActivity(intent)
+        }
+
+        homePage = findViewById(R.id.homePage)
+        homePage.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("ID", userID)
             startActivity(intent)
         }
@@ -77,7 +85,7 @@ class EventDetails : AppCompatActivity() {
                     }
                 }
                 tempArrayList = attendeesIDs
-                val adapter = MyDetailAdapter(tempArrayList, context)
+                val adapter = MyDetailAdapter(tempArrayList, context, userID)
 
                 newRecylerview.adapter = adapter
                 adapter.setOnItemClickListener(object : MyDetailAdapter.onItemClickListener{

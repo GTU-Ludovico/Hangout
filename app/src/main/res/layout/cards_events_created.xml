@@ -20,11 +20,11 @@
 
         <TextView
             android:id="@+id/date"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="25dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/card_date_border"
             android:paddingVertical="30dp"
             android:text="10\nOCT"

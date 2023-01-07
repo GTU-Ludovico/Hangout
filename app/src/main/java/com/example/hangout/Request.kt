@@ -12,24 +12,23 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recylerviewkotlin.MyEventAdapter
+import com.example.recylerviewkotlin.MyRequestAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 
-class EventsAttended : AppCompatActivity() {
+class Request : AppCompatActivity() {
     private lateinit var backBtn: ImageView
     private lateinit var profileImage: ImageView
     private lateinit var name: TextView
 
-    private lateinit var events: ArrayList<Events>
-    private lateinit var tempArrayList : ArrayList<Events>
     private lateinit var newRecylerview : RecyclerView
 
     private var context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_events_attended)
+        setContentView(R.layout.activity_request)
         val userID = intent.getStringExtra("ID")
 
         backBtn = findViewById<ImageView>(R.id.backBtn)
@@ -62,42 +61,32 @@ class EventsAttended : AppCompatActivity() {
             }
         }
 
-        events = arrayListOf<Events>()
-        tempArrayList = arrayListOf<Events>()
         newRecylerview = findViewById(R.id.rcView2)
         newRecylerview.layoutManager = LinearLayoutManager(this)
         newRecylerview.setHasFixedSize(true)
-        findAttendedEvents(userID!!)
+        findRequestedEvents(userID!!)
     }
 
-    private fun fillArray(userID: String, eventDetails: ArrayList<String>){
-        FirebaseFirestore.getInstance().collection("events")
+    private fun findRequestedEvents(userID: String) {
+        val arr = ArrayList<String>()
+        val par = ArrayList<String>()
+        FirebaseFirestore.getInstance().collection("requests")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    val creatorID = document.data["hostID"]
+                    val hostID = document.data["hostID"]
                     val eventID = document.data["eventID"]
-                    val title = document.data["title"]
-                    val category = document.data["category"]
-                    val location = document.data["place"]
-                    val description = document.data["description"]
-                    val currentParticipants = document.data["current"]
-                    val participantNumber = document.data["parnumber"]
-                    val private = document.data["private"]
-                    val date = document.data["date"]
-                    val time = document.data["time"]
-                    val temp: Events = Events(date.toString(), time.toString(), creatorID.toString(), eventID.toString(), title.toString(), category.toString(), location.toString(), description.toString(), currentParticipants.toString(), participantNumber.toString(), private.toString(), userID)
-
-                    if (eventDetails.contains(eventID.toString())){
-                        events.add(temp)
+                    val participantID = document.data["participantID"]
+                    if (hostID.toString().equals(userID)){
+                        arr.add(eventID.toString())
+                        par.add(participantID.toString())
                     }
-
                 }
-                tempArrayList = events
-                val adapter = MyEventAdapter(tempArrayList, context, userID)
+
+                val adapter = MyRequestAdapter(arr, context, par, userID)
 
                 newRecylerview.adapter = adapter
-                adapter.setOnItemClickListener(object : MyEventAdapter.onItemClickListener{
+                adapter.setOnItemClickListener(object : MyRequestAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
 
                     }
@@ -106,29 +95,6 @@ class EventsAttended : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.d(ContentValues.TAG, "Error getting documents: ", exception)
             }
-
-
     }
-
-    private fun findAttendedEvents(userID: String) {
-        val arr = ArrayList<String>()
-        FirebaseFirestore.getInstance().collection("eventDetails")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val participantID = document.data["participantID"]
-                    val eventID = document.data["eventID"]
-                    if (participantID.toString().equals(userID)){
-                        arr.add(eventID.toString())
-                    }
-                }
-
-                fillArray(userID, arr)
-            }
-            .addOnFailureListener { exception ->
-                Log.d(ContentValues.TAG, "Error getting documents: ", exception)
-             }
-    }
-
 
 }

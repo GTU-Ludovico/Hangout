@@ -3,6 +3,7 @@ package com.example.recylerviewkotlin
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hangout.Events
 import com.example.hangout.R
+import com.example.hangout.User
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,7 +22,7 @@ import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MyDetailAdapter(private val newsList : ArrayList<String>, private val context: Context) : RecyclerView.Adapter<MyDetailAdapter.MyViewHolder>(),Filterable {
+class MyDetailAdapter(private val newsList : ArrayList<String>, private val context: Context, private val userID: String) : RecyclerView.Adapter<MyDetailAdapter.MyViewHolder>(),Filterable {
 
     private lateinit var mListener : onItemClickListener
 
@@ -71,7 +73,14 @@ class MyDetailAdapter(private val newsList : ArrayList<String>, private val cont
                 val document = task.result
                 if (document != null) {
                     val name = document.getString("name")
+                    val ID = document.getString("userID")
                     holder.attendee.text = name
+                    holder.attendee.setOnClickListener {
+                        val intent = Intent(context, User::class.java)
+                        intent.putExtra("ID", userID)
+                        intent.putExtra("profileID", ID)
+                        context.startActivity(intent)
+                    }
                 } else {
                     Log.d("LOGGER", "No such document")
                 }

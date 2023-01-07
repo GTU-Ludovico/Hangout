@@ -17,6 +17,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/homePageText"
+        android:layout_width="159dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="50dp"
+        android:text="Home Page"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.428" />
+
+    <TextView
         android:id="@+id/eventdetails"
         android:layout_width="159dp"
         android:layout_height="49dp"
@@ -37,6 +53,18 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="56dp"
+        android:outlineSpotShadowColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
+    <ImageView
+        android:id="@+id/homePage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="24dp"
         android:outlineSpotShadowColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"

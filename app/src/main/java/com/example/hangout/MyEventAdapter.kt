@@ -2,6 +2,7 @@ package com.example.recylerviewkotlin
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -22,7 +23,7 @@ import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MyEventAdapter(private val newsList : ArrayList<Events>, private val context: Context) : RecyclerView.Adapter<MyEventAdapter.MyViewHolder>(),Filterable {
+class MyEventAdapter(private val newsList : ArrayList<Events>, private val context: Context, private val userID: String) : RecyclerView.Adapter<MyEventAdapter.MyViewHolder>(),Filterable {
 
     private lateinit var mListener : onItemClickListener
 
@@ -63,6 +64,7 @@ class MyEventAdapter(private val newsList : ArrayList<Events>, private val conte
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = newsList[position]
         holder.date.text = currentItem.date
@@ -84,8 +86,36 @@ class MyEventAdapter(private val newsList : ArrayList<Events>, private val conte
             Picasso.get().load(uri).into(holder.hostProfile)
         }
 
+        var flag = false
         holder.cancel.setOnClickListener {
-            //TO BE IMPLEMENTED
+            if (flag){
+                Toast.makeText(context, "You have already left.", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                FirebaseFirestore.getInstance().collection("eventDetails")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            val participantID = document.data["participantID"]
+                            val eventIDV = document.data["eventID"]
+                            if (eventIDV.toString().equals(newsList[position].eventID) && participantID == userID){
+                                FirebaseFirestore.getInstance().collection("eventDetails").document(document.id)
+                                    .delete()
+                                    .addOnSuccessListener {
+                                        Toast.makeText(context, "You have left from event successfully!", Toast.LENGTH_SHORT).show()
+                                        holder.date.text = currentItem.date + "\n(LEFT)"
+                                        val x = newsList[position].current.toInt() - 1
+                                        FirebaseFirestore.getInstance().collection("events").document(newsList[position].eventID).update("current", x.toString())
+                                    }
+                                    .addOnFailureListener { Toast.makeText(context, "You have already left.", Toast.LENGTH_SHORT).show() }
+                            }
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d(TAG, "Error getting documents: ", exception)
+                    }
+            }
+            flag = true
         }
     }
 

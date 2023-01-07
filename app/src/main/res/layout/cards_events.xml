@@ -20,11 +20,11 @@
 
         <TextView
             android:id="@+id/date"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="46dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="25dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/card_date_border"
             android:paddingVertical="30dp"
             android:text="10\nOCT"
@@ -54,14 +54,14 @@
 
             <TextView
                 android:id="@+id/description"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
                 android:layout_marginTop="5dp"
 
                 android:background="@drawable/border_description_card"
+                android:maxLines="4"
                 android:paddingRight="2dp"
                 android:paddingBottom="2dp"
-                android:maxLines="4"
                 android:text="asfsafasfasfdddassafsaasfsafasfsafasfasfdddassafsafasfasfasfasfafssafafasfasfasfdddassafsafasfasfasfasfafssafafasffasfasfasfasfafssafafasf"
                 android:textSize="12sp">
 
@@ -103,8 +103,8 @@
 
                 <TextView
                     android:id="@+id/location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="128dp"
+                    android:layout_height="38dp"
                     android:layout_marginTop="2.5dp"
                     android:layout_marginEnd="10dp"
                     android:text="LocASDFASDASDFASASDFASDFation"

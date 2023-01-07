@@ -21,6 +21,7 @@ class Profile : AppCompatActivity() {
     private lateinit var mail: TextView
     private lateinit var secondActivityButton: Button
     private lateinit var EventsCreatedBtn: Button
+    private lateinit var RequestBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,7 @@ class Profile : AppCompatActivity() {
         mail = findViewById<TextView>(R.id.mail)
         secondActivityButton = findViewById<Button>(R.id.secondActivityButton)
         EventsCreatedBtn = findViewById<Button>(R.id.EventsCreatedBtn)
+        RequestBtn = findViewById<Button>(R.id.RequestBtn)
 
         val storageReference = FirebaseStorage.getInstance().getReference()
         val profileRef = storageReference.child("users/"+userID+"/profile.jpg")
@@ -74,9 +76,14 @@ class Profile : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         EventsCreatedBtn.setOnClickListener{
             val intent = Intent(this, EventsCreated::class.java)
+            intent.putExtra("ID", userID)
+            startActivity(intent)
+        }
+
+        RequestBtn.setOnClickListener{
+            val intent = Intent(this, Request::class.java)
             intent.putExtra("ID", userID)
             startActivity(intent)
         }
