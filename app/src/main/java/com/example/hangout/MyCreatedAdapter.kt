@@ -65,6 +65,7 @@ class MyCreatedAdapter(private val newsList : ArrayList<Events>, private val con
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = newsList[position]
+        var flag = false
         holder.date.text = currentItem.date
         holder.title.text = currentItem.title
         holder.description.text = currentItem.description
@@ -72,13 +73,18 @@ class MyCreatedAdapter(private val newsList : ArrayList<Events>, private val con
         holder.location.text = currentItem.place
 
         holder.linear.setOnClickListener{
-            val intent = Intent(context, EventCreatorDetails::class.java)
-            intent.putExtra("ID", currentItem.userID)
-            intent.putExtra("eventID", currentItem.eventID)
-            context.startActivity(intent)
+            if (flag){
+                Toast.makeText(context, "Event has been cancelled.", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                val intent = Intent(context, EventCreatorDetails::class.java)
+                intent.putExtra("ID", currentItem.userID)
+                intent.putExtra("eventID", currentItem.eventID)
+                context.startActivity(intent)
+            }
         }
 
-        var flag = false
+
         holder.cancel.setOnClickListener {
             //TO BE IMPLEMENTED
             //eventdetails'daki eventID tutuyorsa sil

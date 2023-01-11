@@ -129,50 +129,60 @@
 
     <ImageView
         android:id="@+id/imageView14"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
         app:srcCompat="@drawable/line" />
 
     <ImageView
         android:id="@+id/imageView15"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createdby"
         app:srcCompat="@drawable/line" />
 
     <ImageView
         android:id="@+id/imageView17"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="1dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventtime"
         app:srcCompat="@drawable/line" />
 
     <ImageView
         android:id="@+id/imageView18"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventcategory"
         app:srcCompat="@drawable/line" />
 
     <ImageView
         android:id="@+id/imageView19"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="6dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="56dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Description"
         app:srcCompat="@drawable/line" />
@@ -271,15 +281,17 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="225dp"
+        android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:maxLines="5"
-        android:text="descriptionnnasdfasşdşkcjaşlsdkclaksjdnlfkjasndlkcjasdnlklkjlkasjdnclkasjdnfjkhasdkjchnasdkjslakdjcnlkasdjcnlaksdjnclkasjdlsakdjcnlkasdjnaslkdcjnlkasjdncnsdfklsmdlkflksdlksdlkmlksdfnnnnn"
+        android:layout_marginEnd="32dp"
+        android:maxLines="8"
+        android:text="description"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="12dp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Description"
         app:layout_constraintTop_toBottomOf="@+id/imageView18" />
 
@@ -287,7 +299,7 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="2dp"
         android:text="Attendees Of The Event"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -298,15 +310,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcView"
-        android:layout_width="327dp"
-        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="198dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
 
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@+id/textView16"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView16"
         tools:listitem="@layout/participants" />
 

@@ -233,6 +233,10 @@ class createEvent : AppCompatActivity() {
             Toast.makeText(this, "Invalid participant numbers.", Toast.LENGTH_SHORT).show()
             return
         }
+        if (title.length > 10){
+            Toast.makeText(this, "Title must have 10 characters at max.", Toast.LENGTH_SHORT).show()
+            return
+        }
         val eventID: String = UUID.randomUUID().toString()
         val documentReference:DocumentReference = FirebaseFirestore.getInstance().collection("events").document(eventID)
         val events: HashMap<String, String> = HashMap<String, String>()
